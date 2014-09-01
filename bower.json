@@ -1,6 +1,18 @@
 {
     "name": "angular-locale",
-    "version": "0.0.0",
+    "version": "1.0.0",
+    "main": "app/scripts/Locale.js",
+    "ignore": [
+        ".jshintrc",
+        ".editorconfig",
+        ".gitattributes",
+        ".jshintrc",
+        ".travis.yml",
+        "Gruntfile.js",
+        "package.json",
+        "app/scripts/app.js",
+        "app/index.html"
+    ],
     "dependencies": {
         "angular": "1.2.16",
         "angular-local-storage": "0.0.7",
