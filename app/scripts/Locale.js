@@ -3,16 +3,16 @@
 angular.module('LocaleModule', ['LocalStorageModule'])
 
 
-    .controller('LocaleController', ['$scope', 'Locale', function ($scope, Locale) {
+    .controller('LocaleController', function ($scope, Locale) {
         $scope.language = Locale.activeLocale;
 
         $scope.changeLocale = function (locale) {
             Locale.changeLocale(locale || $scope.language);
             $scope.language = Locale.activeLocale;
         };
-    }])
+    })
 
-    .directive('localeWrapper', ['Locale', function (Locale) {
+    .directive('localeWrapper', function (Locale) {
         return {
             link: function (scope, element) {
                 scope.language = Locale.getLanguage();
@@ -27,9 +27,9 @@ angular.module('LocaleModule', ['LocalStorageModule'])
                 );
             }
         };
-    }])
+    })
 
-    .directive('localeString', ['Locale', function (Locale) {
+    .directive('localeString', function (Locale) {
         return {
             restrict: 'A',
             scope: {
@@ -56,9 +56,9 @@ angular.module('LocaleModule', ['LocalStorageModule'])
             },
             template: '<span data-ng-bind-html="outputString"></span>'
         };
-    }])
+    })
 
-    .directive('localeTemplate', ['Locale', function (Locale) {
+    .directive('localeTemplate', function (Locale) {
         return {
             restrict: 'A',
             replace: true,
@@ -75,9 +75,9 @@ angular.module('LocaleModule', ['LocalStorageModule'])
             },
             template: '<div data-ng-include="templatePath"></div>'
         };
-    }])
+    })
 
-    .factory('Locale', ['$location', 'localStorageService', function ($location, LocalStorage) {
+    .factory('Locale', function ($location, LocalStorage) {
         return (function () {
 
             function Locale() {
@@ -182,4 +182,19 @@ angular.module('LocaleModule', ['LocalStorageModule'])
             return new Locale();
 
         })();
-    }]);
+    });
+
+Object.byString = function(o, s) {
+    s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+    s = s.replace(/^\./, '');           // strip a leading dot
+    var a = s.split('.');
+    while (a.length) {
+        var n = a.shift();
+        if (n in o) {
+            o = o[n];
+        } else {
+            return;
+        }
+    }
+    return o;
+};
