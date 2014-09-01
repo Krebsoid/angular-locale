@@ -9,10 +9,13 @@
  * Main module of the application.
  */
 angular
-  .module('app', ['LocaleModule']);
+    .module('app', ['LocaleModule'])
+    .run(function (Locale) {
+        Locale.initLocale();
+    });
 
 
-Object.byString = function(o, s) {
+Object.byString = function (o, s) {
     s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
     s = s.replace(/^\./, '');           // strip a leading dot
     var a = s.split('.');

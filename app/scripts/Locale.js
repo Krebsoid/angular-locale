@@ -77,7 +77,7 @@ angular.module('LocaleModule', ['LocalStorageModule'])
         };
     })
 
-    .factory('Locale', function ($location, LocalStorage) {
+    .factory('Locale', function ($location, localStorageService) {
         return (function () {
 
             function Locale() {
@@ -90,7 +90,7 @@ angular.module('LocaleModule', ['LocalStorageModule'])
             }
 
             function checkForCookie(Locale) {
-                return Locale.findLocale(LocalStorage.cookie.get('language'));
+                return Locale.findLocale(localStorageService.get('language') || localStorageService.cookie.get('language'));
             }
 
             function checkForBrowserLanguage(Locale) {
@@ -152,8 +152,8 @@ angular.module('LocaleModule', ['LocalStorageModule'])
                 var foundLocale = this.findLocale(locale);
                 if (foundLocale) {
                     this.activeLocale = foundLocale;
-                    LocalStorage.cookie.add('language', foundLocale.value);
-                    LocalStorage.add('language', foundLocale.value);
+                    localStorageService.cookie.add('language', foundLocale.value);
+                    localStorageService.add('language', foundLocale.value);
                 }
                 else {
                     console.log('Locale ' + locale + ' not available');
