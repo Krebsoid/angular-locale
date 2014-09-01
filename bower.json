@@ -1,6 +1,6 @@
 {
     "name": "angular-locale",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "main": "app/scripts/Locale.js",
     "ignore": [
         ".jshintrc",
@@ -14,9 +14,9 @@
         "app/index.html"
     ],
     "dependencies": {
-        "angular": "1.2.16",
-        "angular-local-storage": "0.0.7",
-        "lodash": "2.4.1",
+        "angular": "~1.2.16",
+        "angular-local-storage": "~0.0.7",
+        "lodash": "~2.4.1",
         "json3": "~3.3.1",
         "es5-shim": "~3.1.0"
     },
