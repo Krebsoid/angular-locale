@@ -9,23 +9,14 @@
  * Main module of the application.
  */
 angular
-    .module('app', ['LocaleModule'])
-    .run(function (Locale) {
+    .module('app', ['LocaleModule'], function(LocaleProvider) {
+        LocaleProvider.setAvailableLocales([
+            {name: 'Deutsch', value: 'de_DE'},
+            {name: 'English', value: 'en_GB'},
+            {name: 'Espanol', value: 'es_ES'}
+        ]);
+    })
+
+    .run(['Locale', function(Locale) {
         Locale.initLocale();
-    });
-
-
-Object.byString = function (o, s) {
-    s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
-    s = s.replace(/^\./, '');           // strip a leading dot
-    var a = s.split('.');
-    while (a.length) {
-        var n = a.shift();
-        if (n in o) {
-            o = o[n];
-        } else {
-            return;
-        }
-    }
-    return o;
-};
+    }]);

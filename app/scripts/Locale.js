@@ -77,15 +77,36 @@ angular.module('LocaleModule', ['LocalStorageModule'])
         };
     })
 
-    .factory('Locale', function ($location, localStorageService) {
-        return (function () {
+    .provider('Locale', function () {
+
+        var _availableLocales = [
+            {name: 'Deutsch', value: 'de_DE'},
+            {name: 'English', value: 'en_GB'}
+        ];
+
+        var _visibleLocales = [
+            {name: 'Deutsch', value: 'de'},
+            {name: 'English', value: 'en'}
+        ];
+
+        var _defaultLocale = 'de_DE';
+
+        this.setAvailableLocales = function (availableLocales) {
+            _availableLocales = availableLocales;
+        };
+        this.setVisibleLocales = function (visibleLocales) {
+            _visibleLocales = visibleLocales;
+        };
+        this.setDefaultLocale = function (defaultLocale) {
+            _defaultLocale = defaultLocale;
+        };
+
+        this.$get = function ($location, localStorageService) {
 
             function Locale() {
-                this.availableLocales = [
-                    {name: 'Deutsch', value: 'de_DE'},
-                    {name: 'English', value: 'en_GB'}
-                ];
-                this.defaultLocale = 'de_DE';
+                this.availableLocales = _availableLocales;
+                this.visibleLocales = _visibleLocales;
+                this.defaultLocale = _defaultLocale;
                 this.activeLocale = undefined;
             }
 
@@ -181,10 +202,10 @@ angular.module('LocaleModule', ['LocalStorageModule'])
 
             return new Locale();
 
-        })();
+        };
     });
 
-Object.byString = function(o, s) {
+Object.byString = function (o, s) {
     s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
     s = s.replace(/^\./, '');           // strip a leading dot
     var a = s.split('.');
@@ -197,4 +218,5 @@ Object.byString = function(o, s) {
         }
     }
     return o;
-};
+};        
+
