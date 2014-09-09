@@ -42,17 +42,23 @@ angular.module('LocaleModule', ['LocalStorageModule'])
 
                 scope.$watch(
                     function () {
-                        return Locale.getLocale();
+                        return angular.toJson({locale: Locale.getLocale(), data: scope.localeVariables})
                     },
-                    function (locale) {
-                        if (!scope.isTemplate) {
-                            scope.outputString = Object.byString(Localization, attrs.localeString)[locale];
-                        }
-                        else {
+                    function (data) {
+                        compileTemplate(angular.fromJson(data).locale);
+                    }
+                );
+
+                function compileTemplate(locale) {
+                    if (!scope.isTemplate) {
+                        scope.outputString = Object.byString(Localization, attrs.localeString)[locale];
+                    }
+                    else {
+                        if(angular.isObject(scope.localeVariables)) {
                             scope.outputString = _.template(Object.byString(Localization, attrs.localeString)[locale], scope.localeVariables);
                         }
                     }
-                );
+                }
             },
             template: '<span data-ng-bind-html="outputString"></span>'
         };
