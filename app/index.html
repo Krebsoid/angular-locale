@@ -17,6 +17,7 @@
 
 <div data-ng-controller="LocaleController">
     <span data-ng-bind="language.name"></span>
+    <span data-ng-bind="'home' | locale"></span>
 </div>
 
 <!-- build:js(.) scripts/oldieshim.js -->
@@ -37,6 +38,7 @@
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
 <script src="scripts/app.js"></script>
 <script src="scripts/Locale.js"></script>
+<script src="scripts/Localization.js"></script>
 <!-- endbuild -->
 </body>
 </html>

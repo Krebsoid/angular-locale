@@ -42,7 +42,7 @@ angular.module('LocaleModule', ['LocalStorageModule'])
 
                 scope.$watch(
                     function () {
-                        return angular.toJson({locale: Locale.getLocale(), data: scope.localeVariables})
+                        return angular.toJson({locale: Locale.getLocale(), data: scope.localeVariables});
                     },
                     function (data) {
                         compileTemplate(angular.fromJson(data).locale);
@@ -61,6 +61,12 @@ angular.module('LocaleModule', ['LocalStorageModule'])
                 }
             },
             template: '<span data-ng-bind-html="outputString"></span>'
+        };
+    })
+
+    .filter('localized', function(Locale) {
+        return function(value) {
+            return Object.byString(Localization, value)[Locale.getLocale()];
         };
     })
 
