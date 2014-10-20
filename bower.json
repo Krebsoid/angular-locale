@@ -1,6 +1,6 @@
 {
     "name": "angular-locale",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "main": "app/scripts/Locale.js",
     "ignore": [
         ".jshintrc",
