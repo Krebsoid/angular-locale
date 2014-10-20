@@ -76,12 +76,16 @@ angular.module('LocaleModule', ['LocalStorageModule'])
             replace: true,
             scope: true,
             link: function (scope, element, attrs) {
+                scope.language = Locale.getLanguage();
+                scope.templatePath = '/partials/locale/' + Locale.getLanguage() + '/' + attrs.localeTemplate + '.html';
                 scope.$watch(
                     function () {
                         return Locale.getLocale();
                     },
                     function () {
-                        scope.templatePath = './partials/locale/' + Locale.getLanguage() + '/' + attrs.localeTemplate + '.html';
+                        if(Locale.getLanguage() !== scope.language) {
+                            scope.templatePath = '/partials/locale/' + Locale.getLanguage() + '/' + attrs.localeTemplate + '.html';
+                        }
                     }
                 );
             },
