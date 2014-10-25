@@ -1,6 +1,8 @@
 'use strict';
 
-angular.module('LocaleModule', ['LocalStorageModule'])
+angular.module('LocaleModule', ['LocalStorageModule'], function (LocalStorageProvider) {
+    LocalStorageProvider.setPrefix('');
+})
 
 
     .controller('LocaleController', function ($scope, Locale) {
@@ -54,7 +56,7 @@ angular.module('LocaleModule', ['LocalStorageModule'])
                         scope.outputString = Object.byString(Localization, attrs.localeString)[locale];
                     }
                     else {
-                        if(angular.isObject(scope.localeVariables)) {
+                        if (angular.isObject(scope.localeVariables)) {
                             scope.outputString = _.template(Object.byString(Localization, attrs.localeString)[locale], scope.localeVariables);
                         }
                     }
@@ -64,8 +66,8 @@ angular.module('LocaleModule', ['LocalStorageModule'])
         };
     })
 
-    .filter('localized', function(Locale) {
-        return function(value) {
+    .filter('localized', function (Locale) {
+        return function (value) {
             return Object.byString(Localization, value)[Locale.getLocale()];
         };
     })
@@ -83,7 +85,7 @@ angular.module('LocaleModule', ['LocalStorageModule'])
                         return Locale.getLocale();
                     },
                     function () {
-                        if(Locale.getLanguage() !== scope.language) {
+                        if (Locale.getLanguage() !== scope.language) {
                             scope.templatePath = '/partials/locale/' + Locale.getLanguage() + '/' + attrs.localeTemplate + '.html';
                         }
                     }
