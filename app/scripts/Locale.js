@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('LocaleModule', ['LocalStorageModule'], function (LocalStorageProvider) {
-    LocalStorageProvider.setPrefix('');
+angular.module('LocaleModule', ['LocalStorageModule'], function (localStorageServiceProvider) {
+    localStorageServiceProvider.setPrefix('');
 })
 
 
