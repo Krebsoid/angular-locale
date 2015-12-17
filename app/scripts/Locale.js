@@ -86,6 +86,7 @@ angular.module('LocaleModule', ['LocalStorageModule'], function (localStorageSer
                     },
                     function () {
                         if (Locale.getLanguage() !== scope.language) {
+                            scope.language = Locale.getLanguage();
                             scope.templatePath = '/partials/locale/' + Locale.getLanguage() + '/' + attrs.localeTemplate + '.html';
                         }
                     }
@@ -236,5 +237,5 @@ Object.byString = function (o, s) {
         }
     }
     return o;
-};        
+};
 
