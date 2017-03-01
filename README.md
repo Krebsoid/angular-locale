@@ -17,7 +17,8 @@ Der Service setzt die Sprache der Anwendung nach folgendem Schema:
 
 Bei Wechsel der Sprache setzt der Service einen Cookie bzw. speichert die Sprache im Localestorage des Browsers. 
 
-Anwendung
+
+Anwendung (statisch)
 --------------
 
 Das Modul wird einfach als Dependency reingeladen, ist über den Provider konfigurierbar und muss danach nur noch in einem run-Block initiiert werden.
@@ -53,8 +54,8 @@ Die Localization Variable kann beliebig geschachtelt werden und anhand des Prope
 Danach gibt es mehrere Möglichkeiten darauf zuzugreifen:
 
 <pre>
-<span data-ng-bind="'home' | localized"></span>
-<span data-locale-string='home'></span>
+&lt;span data-ng-bind="'home' | localized"&gt;&lt;/span&gt;
+&lt;span data-locale-string='home'&gt;&lt;/span&gt;
 </pre>
 
 Alternativ kann natürlich auch im Controller per Filteraufruf, die Lokalisierung geladen werden:
@@ -64,6 +65,31 @@ function AppController($scope, $filter) {
     $scope.string = $filter('localized')('home');
 }
 </pre>
+
+
+Anwendung (dynamisch)
+-------------------
+
+Falls dynamische Texte benötigt werden können diese in der Localization Datei folgendermaßen definiert werden:
+
+<pre>
+var Localization = {
+    home : {
+        de_DE : "zu Hause in ${city}",
+        en_GB : "home at ${city}"
+    }
+};
+</pre>
+
+Der Aufruf wird per zusätzlichem Attribut am HTML Tag realisiert:
+
+<pre>
+&lt;span data-locale-string='home' data-locale-variable='{city: 'Hamburg'}'&gt;&lt;/span&gt;
+</pre>
+
+
+Wechseln der Sprache
+-------------------------
 
 Der Service **Locale** kann benutzt werden, um die Sprache zu wechseln:
 
