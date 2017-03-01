@@ -18,6 +18,21 @@ Der Service setzt die Sprache der Anwendung nach folgendem Schema:
 Bei Wechsel der Sprache setzt der Service einen Cookie bzw. speichert die Sprache im Localestorage des Browsers. 
 
 
+Installation
+----------------
+
+Das Modul ist als Bower Komponente registriert und kann einfach als Abhängigkeit in bower.json integriert werden:
+
+<pre>
+{
+  "name": "example",
+  "dependencies": {
+    "angular-locale": "~0.1.11"
+  }
+}
+</pre>
+
+
 Anwendung (statisch)
 --------------
 
