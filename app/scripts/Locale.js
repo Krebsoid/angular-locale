@@ -110,6 +110,8 @@ angular.module('LocaleModule', ['LocalStorageModule'], function (localStorageSer
 
         var _defaultLocale = 'de_DE';
 
+        var _cookie = true;
+
         this.setAvailableLocales = function (availableLocales) {
             _availableLocales = availableLocales;
         };
@@ -119,6 +121,9 @@ angular.module('LocaleModule', ['LocalStorageModule'], function (localStorageSer
         this.setDefaultLocale = function (defaultLocale) {
             _defaultLocale = defaultLocale;
         };
+        this.disableCookie = function() {
+            _cookie = false;
+        };
 
         this.$get = function ($location, localStorageService) {
 
@@ -126,6 +131,7 @@ angular.module('LocaleModule', ['LocalStorageModule'], function (localStorageSer
                 this.availableLocales = _availableLocales;
                 this.visibleLocales = _visibleLocales;
                 this.defaultLocale = _defaultLocale;
+                this.cookie = _cookie;
                 this.activeLocale = undefined;
             }
 
@@ -192,8 +198,10 @@ angular.module('LocaleModule', ['LocalStorageModule'], function (localStorageSer
                 var foundLocale = this.findLocale(locale);
                 if (foundLocale) {
                     this.activeLocale = foundLocale;
-                    localStorageService.cookie.add('language', foundLocale.value);
-                    localStorageService.add('language', foundLocale.value);
+                    if(this.cookie) {
+                        localStorageService.cookie.add('language', foundLocale.value);
+                        localStorageService.add('language', foundLocale.value);
+                    }
                 }
                 else {
                     console.log('Locale ' + locale + ' not available');
@@ -203,7 +211,10 @@ angular.module('LocaleModule', ['LocalStorageModule'], function (localStorageSer
             Locale.prototype.initLocale = function () {
                 var self = this;
                 var consumedLanguage = consumeLanguageLink(self);
-                var cookieLanguage = checkForCookie(self);
+                var cookieLanguage = undefined;
+                if(this.cookie) {
+                    cookieLanguage = checkForCookie(self);
+                }
                 var browserLanguage = checkForBrowserLanguage(self);
                 if (angular.isDefined(consumedLanguage)) {
                     this.changeLocale(consumedLanguage.value);
